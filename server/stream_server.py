@@ -34,7 +34,7 @@ class StreamServer:
         self.logger.info("Start listening " + self.config['server_ip'] + ":" + str(self.config['server_port']))
 
     def LoggerInit(self):
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(type(self).__name__)
         self.logger.setLevel(logging.INFO)
         self.ch = logging.StreamHandler()
         self.ch.setLevel(logging.INFO)
@@ -54,7 +54,7 @@ class StreamSaver:
         self.run()
 
     def LoggerInit(self):
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(type(self).__name__)
         self.logger.setLevel(logging.INFO)
 
     def run(self):
@@ -79,7 +79,7 @@ class StreamSaver:
         self.logger.info("Start convert " + self.h264_filename + " to " + self.mp4_filename)
 
         try:
-            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path]).returncode is 0:
+            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path], stdout=subprocess.DEVNULL).returncode is 0:
                 try:
                     if subprocess.run(["rm", "-f", self.h264_path]).returncode is 0:
                         pass
