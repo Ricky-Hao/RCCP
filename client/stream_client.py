@@ -9,13 +9,13 @@ connection = client_socket.makefile("wb")
 while True:
     try:
         camera = picamera.PiCamera()
-        camera.resolution = (640,480)
+        camera.resolution = (1280,720)
         camera.framerate = 24
         camera.start_preview()
         time.sleep(2)
 
         camera.start_recording(connection, format='h264')
-        camera.wait_recording(30)
+        camera.wait_recording(300)
         camera.stop_recording()
 
     finally:
