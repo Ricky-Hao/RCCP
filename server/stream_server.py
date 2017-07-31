@@ -7,8 +7,9 @@ class StreamServer:
         self.run()
 
     def run(self):
-        while(conn = self.socket.accept()[0].makefile("rb")):
-            StreamSaver(conn, self.config['vedio_path'])
+        while True:
+            conn = self.socket.accept()[0].makefile("rb")
+            StreamSaver(conn, self.config['video_path'])
             conn.close()
     
     def ReadConfig(self):
@@ -23,7 +24,7 @@ class StreamServer:
             exit()
 
     def Listen(self):
-        self.socket = socket()
+        self.socket = socket.socket()
         self.socket.bind((self.config['server_ip'], self.config['server_port']))
         self.socket.listen(0)
 
@@ -69,3 +70,5 @@ class StreamSaver:
         except RuntimeError as err:
             print(err)
 
+if __name__ == "__main__":
+    StreamServer()
