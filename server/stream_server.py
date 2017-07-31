@@ -1,6 +1,6 @@
 import subprocess,socket,time,json,os,logging
 
-class StreamServer:
+class Server:
     def __init__(self):
         self.LoggerInit()
         self.ReadConfig()
@@ -11,7 +11,7 @@ class StreamServer:
         while True:
             conn = self.socket.accept()[0].makefile("rb")
             self.logger.info("New connection accepted.")
-            StreamSaver(conn, self.config['video_path'])
+            Recorder(conn, self.config['video_path'])
             conn.close()
     
     def ReadConfig(self):
@@ -43,7 +43,7 @@ class StreamServer:
         self.logger.addHandler(self.ch)
 
 
-class StreamSaver:
+class Recorder:
     def __init__(self, conn, video_path):
         self.LoggerInit()
         self.connection = conn
@@ -102,4 +102,4 @@ class StreamSaver:
         self.logger.info("Convert done.")
 
 if __name__ == "__main__":
-    StreamServer()
+    Server()
