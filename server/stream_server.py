@@ -76,6 +76,9 @@ class StreamSaver:
             self.logger.critical(err)
         self.logger.info("Record done.")
         self.Convert2MP4()
+
+    def __del__(self):
+        self.logger.info("StreamSaver destory")
         
     def Convert2MP4(self):
         self.h264_path = self.video_path + "/" + self.h264_filename
