@@ -23,3 +23,5 @@ while True:
 
     except picamera.exc.PiCameraMMALError:
         time.sleep(10)
+
+    time.sleep(10)
