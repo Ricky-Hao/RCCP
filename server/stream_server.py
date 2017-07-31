@@ -3,7 +3,7 @@ import time
 
 # Bind server socket and listening.
 server_socket = socket.socket()
-server_socket.bind("0.0.0.0",45837)
+server_socket.bind(("0.0.0.0",45837))
 server_socket.listen(0)
 
 # Accept a single connection and make a file-like object out of it.
