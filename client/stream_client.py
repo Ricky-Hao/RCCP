@@ -40,6 +40,7 @@ class PiCamera:
         self.camera.rotation = self.config['rotation']
         self.logger.info("PiCamera rotation: "+str(self.config['rotation']))
         self.logger.info("PiCamera video length: "+str(self.config['wait_recording']))
+        self.logger.info("PiCamera video quality: "+str(self.config['quality']))
 
         self.camera.start_preview()
         time.sleep(2)
@@ -73,9 +74,14 @@ class PiCamera:
         self.logger.info("Configuration loaded.")
 
     def Recording(self):
-        self.camera.start_recording(self.connection, format='h264', quality=self.config['quality'])
-        self.camera.wait_recording(self.config['wait_recording'])
-        self.camera.stop_recording()
+        self.logger.info("Start recording.")
+        try:
+            self.camera.start_recording(self.connection, format='h264', quality=self.config['quality'])
+            self.camera.wait_recording(self.config['wait_recording'])
+            self.camera.stop_recording()
+        except BaseException as err:
+            self.logger.err(err)
+
 
 
 if __name__ == "__main__":
