@@ -21,7 +21,7 @@ while True:
         connection.close()
         client_socket.close()
 
-    except picamera.exc.PiCameraMMALError:
+    except [picamera.exc.PiCameraMMALError, ConnectionRefusedError]:
         time.sleep(10)
 
     time.sleep(10)
