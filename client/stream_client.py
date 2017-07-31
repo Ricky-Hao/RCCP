@@ -12,7 +12,8 @@ while True:
         time.sleep(2)
 
         client_socket = socket.socket()
-        connection = client_socket.connect(('angela.moe', 45837)).makefile("wb")
+        client_socket.connect(('angela.moe', 45837))
+        connection = client_socket.makefile("wb")
 
         camera.start_recording(connection, format='h264', quality=25)
         camera.wait_recording(300)
@@ -20,5 +21,5 @@ while True:
         connection.close()
         client_socket.close()
 
-    except PiCameraMMALError:
+    except picamera.exc.PiCameraMMALError:
         time.sleep(10)
