@@ -59,9 +59,9 @@ class StreamSaver:
         self.mp4_path = self.video_path + "/" + self.mp4_filename
 
         try:
-            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path]):
+            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path]).returncode is 0:
                 try:
-                    if subprocess.run(["rm", "-f", self.h264_path]):
+                    if subprocess.run(["rm", "-f", self.h264_path]).returncode is 0:
                         pass
                     else:
                         raise IOError("Could not remove" + self.h264_path)
