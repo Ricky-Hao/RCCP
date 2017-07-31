@@ -56,11 +56,11 @@ class StreamSaver:
     def LoggerInit(self):
         self.logger = logging.getLogger(type(self).__name__)
         self.logger.setLevel(logging.INFO)
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
+        self.ch = logging.StreamHandler()
+        self.ch.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        ch.setFormatter(formatter)
-        self.logger.addHandler(ch)
+        self.ch.setFormatter(formatter)
+        self.logger.addHandler(self.ch)
 
     def run(self):
         self.h264_filename = "Camera_"+self.timestamp+".h264"
@@ -78,7 +78,7 @@ class StreamSaver:
         self.Convert2MP4()
 
     def __del__(self):
-        self.logger.info("StreamSaver destory")
+        self.logger.removeHandler(self.ch)
         
     def Convert2MP4(self):
         self.h264_path = self.video_path + "/" + self.h264_filename
