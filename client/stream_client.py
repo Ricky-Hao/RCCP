@@ -11,7 +11,7 @@ class PiCamera:
         while True:
             self.ClientStart()
             self.Recording()
-            self.ClientStop()
+            self.ClientClose()
 
 
     def LoggerInit(self):
