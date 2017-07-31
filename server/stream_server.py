@@ -33,7 +33,9 @@ class StreamSaver:
     def __init__(self, conn, video_path):
         self.connection = conn
         self.video_path = video_path
-        self.timestamp = str(int(time.time()))
+        os.environ['TZ']="Asia/Shanghai"
+        time.tzset()
+        self.timestamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.run()
 
     def run(self):
