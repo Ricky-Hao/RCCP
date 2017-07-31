@@ -1,0 +1,9 @@
+{
+    "server_ip":"",
+    "server_port":,
+    "resolution":[1280, 720],
+    "rotation":270,
+    "quality":25,
+    "framerate":24,
+    "wait_recording":300
+}
