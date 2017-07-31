@@ -47,7 +47,7 @@ class PiCamera:
     def ClientStart(self):
         try:
             self.client_socket = socket.socket()
-            self.client_socket.connect_ex((self.config['server_ip'],self.config['server_port']))
+            self.client_socket.connect((self.config['server_ip'],self.config['server_port']))
             self.connection = self.client_socket.makefile("wb")
             self.logger.info("Connected to "+self.config['server_ip']+":"+str(self.config['server_port'])+'.')
         except BaseException as err:
