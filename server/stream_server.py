@@ -84,7 +84,7 @@ class StreamSaver:
         self.logger.info("Start convert " + self.h264_filename + " to " + self.mp4_filename)
 
         try:
-            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path], stdout=subprocess.DEVNULL).returncode is 0:
+            if subprocess.run(["ffmpeg", "-i", self.h264_path, "-c", "copy", self.mp4_path], stderr=subprocess.DEVNULL).returncode is 0:
                 try:
                     if subprocess.run(["rm", "-f", self.h264_path]).returncode is 0:
                         pass
