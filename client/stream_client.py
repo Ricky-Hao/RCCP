@@ -39,6 +39,7 @@ class PiCamera:
         self.logger.info("PiCamera framerate: "+str(self.config['framerate']))
         self.camera.rotation = self.config['rotation']
         self.logger.info("PiCamera rotation: "+str(self.config['rotation']))
+        self.logger.info("PiCamera video length: "+str(self.config['wait_recording']))
 
         self.camera.start_preview()
         time.sleep(2)
