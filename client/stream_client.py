@@ -52,6 +52,7 @@ class PiCamera:
             self.logger.info("Connected to "+self.config['server_ip']+":"+str(self.config['server_port'])+'.')
         except BaseException as err:
             self.logger.error(err)
+            time.sleep(10)
             self.ClientStart()
 
     def ClientClose(self):
