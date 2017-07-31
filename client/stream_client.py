@@ -74,7 +74,7 @@ class PiCamera:
     def Recording(self):
         self.camera.start_recording(self.connection, format='h264', quality=self.config['quality'])
         self.camera.wait_recording(self.config['wait_recording'])
-        self.stop_recording()
+        self.camera.stop_recording()
 
 
 if __name__ == "__main__":
