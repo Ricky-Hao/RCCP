@@ -80,7 +80,7 @@ class PiCamera:
             self.camera.wait_recording(self.config['wait_recording'])
             self.camera.stop_recording()
         except BaseException as err:
-            self.logger.err(err)
+            self.logger.error(err)
 
 
 
