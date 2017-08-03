@@ -95,17 +95,13 @@ class Converter(threading.Thread):
 
     def LoggerInit(self):
         self.logger = logging.getLogger(type(self).__name__)
-        self.ch = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        self.ch.setLevel(logging.INFO)
-        self.ch.setFormatter(formatter)
-        self.logger.addHandler(self.ch)
-        self.logger.setLevel(logging.INFO)
-
-    def __del__(self):
-        self.logger.removeHandler(self.ch)
-        self.ch.close()
-
+        if not logger.hasHandlers():
+            self.ch = logging.StreamHandler()
+            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            self.ch.setLevel(logging.INFO)
+            self.ch.setFormatter(formatter)
+            self.logger.addHandler(self.ch)
+            self.logger.setLevel(logging.INFO)
 
 
 
