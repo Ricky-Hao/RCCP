@@ -80,7 +80,7 @@ class LocalRecorder:
     def GenerateFile(self):
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         filename = "PiCamera_"+timestamp
-        filepath = self.config["video_path"]+"/"+h264_filename
+        filepath = self.config["video_path"]+"/"+filename
         yield (filename,filepath)
 
 
