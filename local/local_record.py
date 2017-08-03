@@ -9,7 +9,7 @@ class LocalRecorder:
     
     def LoggerInit(self):
         os.environ['TZ'] = 'Asia/Shanghai'
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(type(self).__name__)
         self.ch = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.ch.setLevel(logging.INFO)
