@@ -95,7 +95,7 @@ class Converter(threading.Thread):
 
     def LoggerInit(self):
         self.logger = logging.getLogger(type(self).__name__)
-        if not logger.hasHandlers():
+        if not self.logger.hasHandlers():
             self.ch = logging.StreamHandler()
             formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
             self.ch.setLevel(logging.INFO)
