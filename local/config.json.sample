@@ -1,0 +1,8 @@
+{
+    "resolution":[1280, 720],
+    "framerate":24,
+    "rotation":270,
+    "quality":25,
+    "video_length":3600,
+    "video_path":"/home/ricky/video"
+}
