@@ -14,7 +14,7 @@ class LocalRecorder:
         self.ch.setLevel(logging.INFO)
         self.ch.setFormatter(formatter)
         self.logger.addHandler(self.ch)
-        self.logger.setLevel(self.INFO)
+        self.logger.setLevel(logging.INFO)
         self.logger.info("Logger prepared.")
 
     def ConfigInit(self):
@@ -84,5 +84,6 @@ class LocalRecorder:
 
 
 
-
+if __name__ == "__main__":
+    LocalRecorder()
         
