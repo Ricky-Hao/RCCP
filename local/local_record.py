@@ -1,4 +1,4 @@
-import picamera,time,os,subprocess,logging,json
+import picamera,time,os,subprocess,logging,json,threading
 
 class LocalRecorder:
     def __init__(self):
@@ -63,15 +63,8 @@ class LocalRecorder:
         while True:
             self.camera.wait_recording(self.config["video_length"])
             self.logger.info(filename+".h264"+" recorded.")
-            
-            if subprocess.run(["ffmpeg", "-i", filepath+".h264", "-c", "copy", filepath+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
-                self.logger.info(filename+".h264"+" converted.")
-                if subprocess.run(["rm", "-f", filepath+".h264"]).returncode is 0:
-                    self.logger.info(filename+".h264"+" deleted.")
-                else:
-                    self.logger.error("Error in delete file: "+filename+".h264")
-            else:
-                self.logger.error("Error in convert file: "+filename+".h264")
+           
+            Converter(filename, filepath).start()
 
             (filename, filepath) = next(self.GenerateFile())
             self.camera.split_recording(filepath+".h264")
@@ -82,6 +75,24 @@ class LocalRecorder:
         filename = "PiCamera_"+timestamp
         filepath = self.config["video_path"]+"/"+filename
         yield (filename,filepath)
+
+class Converter(threading.Thread):
+    def __init__(self, filename, filepath):
+        threading.Thread.__init__(self)
+        self.filename = filename
+        self.filepath = filepath
+
+    def run(self):
+        if subprocess.run(["ffmpeg", "-i", self.filepath+".h264", "-c", "copy", self.filepath+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
+            self.logger.info(self.filename+".h264"+" converted.")
+            if subprocess.run(["rm", "-f", self.filepath+".h264"]).returncode is 0:
+                self.logger.info(self.filename+".h263"+" deleted.")
+            else:
+                self.logger.error("Error in delete file: "+self.filename+".h263")
+        else:
+            self.logger.error("Error in convert file: "+self.filename+".h263")
+
+
 
 
 
