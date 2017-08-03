@@ -1,6 +1,6 @@
 import picamera,time,os,subprocess,logging,json,threading
 
-class LocalRecorder:
+class Recorder:
     def __init__(self):
         self.LoggerInit()
         self.ConfigInit()
@@ -87,11 +87,11 @@ class Converter(threading.Thread):
         if subprocess.run(["ffmpeg", "-i", self.filepath+".h264", "-c", "copy", self.filepath+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
             self.logger.info(self.filename+".h264"+" converted.")
             if subprocess.run(["rm", "-f", self.filepath+".h264"]).returncode is 0:
-                self.logger.info(self.filename+".h263"+" deleted.")
+                self.logger.info(self.filename+".h264"+" deleted.")
             else:
-                self.logger.error("Error in delete file: "+self.filename+".h263")
+                self.logger.error("Error in delete file: "+self.filename+".h264")
         else:
-            self.logger.error("Error in convert file: "+self.filename+".h263")
+            self.logger.error("Error in convert file: "+self.filename+".h264")
 
     def LoggerInit(self):
         self.logger = logging.getLogger(type(self).__name__)
@@ -108,5 +108,5 @@ class Converter(threading.Thread):
 
 
 if __name__ == "__main__":
-    LocalRecorder()
+    Recorder()
         
