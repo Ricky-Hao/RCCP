@@ -81,6 +81,7 @@ class Converter(threading.Thread):
         threading.Thread.__init__(self)
         self.filename = filename
         self.filepath = filepath
+        self.LoggerInit()
 
     def run(self):
         if subprocess.run(["ffmpeg", "-i", self.filepath+".h264", "-c", "copy", self.filepath+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
@@ -91,6 +92,17 @@ class Converter(threading.Thread):
                 self.logger.error("Error in delete file: "+self.filename+".h263")
         else:
             self.logger.error("Error in convert file: "+self.filename+".h263")
+
+    def LoggerInit(self):
+        self.logger = logging.getLogger(type(self).__name__)
+        self.ch = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.ch.setLevel(logging.INFO)
+        self.ch.setFormatter(formatter)
+        self.logger.addHandler(self.ch)
+        self.logger.setLevel(logging.INFO)
+
+
 
 
 
