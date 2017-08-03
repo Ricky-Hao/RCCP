@@ -58,9 +58,12 @@ class PiCamera:
             self.ClientStart()
 
     def ClientClose(self):
-        self.connection.close()
-        self.client_socket.close()
-        self.logger.info("Connection closed.")
+        try:
+            self.connection.close()
+            self.client_socket.close()
+            self.logger.info("Connection closed.")
+        except BaseException as err:
+            self.logger.error(err)
 
     def ReadConfig(self):
         self.script_path = os.path.realpath(__file__)
