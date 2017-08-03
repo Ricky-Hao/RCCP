@@ -5,6 +5,7 @@ class LocalRecorder:
         self.LoggerInit()
         self.ConfigInit()
         self.CameraInit()
+        self.run()
     
     def LoggerInit(self):
         os.environ['TZ'] = 'Asia/Shanghai'
