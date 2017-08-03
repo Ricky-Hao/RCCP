@@ -58,7 +58,7 @@ class LocalRecorder:
 
     def run(self):
         (filename, filepath)=next(self.GenerateFile())
-        self.camera.start_recording(filename+".h264", format = "h264", quality = self.config["quality"])
+        self.camera.start_recording(filepath+".h264", format = "h264", quality = self.config["quality"])
         self.logger.info("Start recording "+filename+".h264")
         while True:
             self.camera.wait_recording(self.config["video_length"])
@@ -74,7 +74,7 @@ class LocalRecorder:
                 self.logger.error("Error in convert file: "+filename+".h264")
 
             (filename, filepath) = next(self.GenerateFile())
-            self.camera.split_recording(filename+".h264")
+            self.camera.split_recording(filepath+".h264")
             self.logger.info("Start recording "+filename+".h264")
 
     def GenerateFile(self):
