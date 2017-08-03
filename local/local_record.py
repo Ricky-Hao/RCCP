@@ -64,7 +64,7 @@ class LocalRecorder:
             self.camera.wait_recording(self.config["video_length"])
             self.logger.info(filename+".h264"+" recorded.")
             
-            if subprocess.run(["ffmpeg", "-i", filepath+".h264", "-c", "copy", filename+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
+            if subprocess.run(["ffmpeg", "-i", filepath+".h264", "-c", "copy", filepath+".mp4"], stderr = subprocess.DEVNULL).returncode is 0:
                 self.logger.info(filename+".h264"+" converted.")
                 if subprocess.run(["rm", "-f", filepath+".h264"]).returncode is 0:
                     self.logger.info(filename+".h264"+" deleted.")
