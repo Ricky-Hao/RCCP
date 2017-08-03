@@ -102,6 +102,9 @@ class Converter(threading.Thread):
         self.logger.addHandler(self.ch)
         self.logger.setLevel(logging.INFO)
 
+    def __del__(self):
+        self.logger.removeHandler(self.ch)
+        self.ch.close()
 
 
 
