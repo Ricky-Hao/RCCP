@@ -40,10 +40,10 @@ class LocalRecorder:
                 time.sleep(10)
             
         self.camera.resolution = self.config["resolution"]
-        self.logger.info("PiCamera resolution: "+str(self.config[resolution]))
+        self.logger.info("PiCamera resolution: "+str(self.config["resolution"]))
 
         self.camera.framerate = self.config["framerate"]
-        self.logger.info("PiCamera framerate: "+str(self.config[framerate]))
+        self.logger.info("PiCamera framerate: "+str(self.config["framerate"]))
 
         self.camera.rotation = self.config["rotation"]
         self.logger.info("PiCamera rotation: "+str(self.config["rotation"]))
