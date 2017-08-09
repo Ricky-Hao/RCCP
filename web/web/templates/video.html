@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if session.logged_in %}
+    <ul class=videos>
+        {% for video in video_list %}
+        <li>
+                <a href={{ url_for('video', video_name=video) }}>{{ video }}</a>
+        {% else %}
+            <li><em>Unbelievable. No entries here so far</em>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}
