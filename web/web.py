@@ -114,6 +114,7 @@ def removeVideo(video_name):
 @app.route('/video/removeVideoByDays', methods=['GET'])
 @loginRequired
 def removeVideoByDays():
+    deleted = 0
     if request.method == 'GET':
         if request.args.get('days'):
             days = int(request.args.get('days'))
@@ -123,7 +124,8 @@ def removeVideoByDays():
                 for f in fn:
                     if os.path.getctime(app.config.get('VIDEO_PATH')+'/'+f) < older:
                         os.remove(app.config.get('VIDEO_PATH')+'/'+f)
-            flash("You have remove videos which older than "+str(days)+" days.")
+                        deleted += 1
+            flash("You have remove "+str(deleted)+" videos which older than "+str(days)+" days.")
     return redirect(url_for('show_videos'))
 
 
