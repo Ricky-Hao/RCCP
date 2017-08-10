@@ -4,7 +4,10 @@
     <ul class=videos>
         {% for video in video_list %}
         <li>
-                <a href={{ url_for('video', video_name=video) }}>{{ video }}</a>
+                <form action="{{ url_for('removeVideo', video_name=video) }}">
+                    <a href={{ url_for('video', video_name=video) }}>{{ video }}</a>
+                    <button type="submit">Delete</button>
+                </form>
         {% else %}
             <li><em>Unbelievable. No entries here so far</em>
         {% endfor %}
