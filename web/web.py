@@ -24,6 +24,7 @@ if app.config.get('SECRET_KEY') is None \
         json.dump(j, f)
     app.config.from_json('config.json')
 app.config['SECRET_KEY'] = b64decode(app.config.get('SECRET_KEY'))
+os.environ['TZ'] = 'Asia/Shanghai'
 
 app.logger.debug(app.config)
 
