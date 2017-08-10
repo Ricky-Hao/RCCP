@@ -94,10 +94,17 @@ def show_videos():
     return render_template('show_videos.html', video_list=video_list)
 
 
-# View or download the specific video.
-@app.route('/video/<string:video_name>')
+# Play video online
+@app.route('/video/play/<string:video_name>')
 @loginRequired
-def video(video_name):
+def playVideo(video_name):
+    return render_template('video.html', video_name=video_name)
+
+
+# Download the specific video.
+@app.route('/video/download/<string:video_name>')
+@loginRequired
+def downloadVideo(video_name):
     return send_from_directory(app.config.get('VIDEO_PATH'), video_name)
 
 

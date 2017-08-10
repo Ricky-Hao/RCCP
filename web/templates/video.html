@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}{{ video_name }}{% endblock %}
+{% block pagetitle %}{{ video_name }}{% endblock %}
+{% block body %}
+<video src={{ url_for('downloadVideo', video_name=video_name) }} controls="controls" autoplay>
+Your browser does not support the video tag.
+</video>
+{% endblock %}
