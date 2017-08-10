@@ -5,15 +5,17 @@
 ## Local folder
 * Record the video and store them on Raspberry.
 
+## Done
+* Poor Web Interface.
+* Login function.
+* Delete video file.
+* Watch and download video file.
+
 ## Todo
-* Write a python web interface to display the video folder.
 * Add stream function to web interface.
 * Add contrl to video file through the web interface.
-* Add password auth to web interface.
 
 ## Web Interface Function
 * Live PiCamera Stream.
-* Delete video file.
-* Download video file.
 * Another control of RaspberryPi. (like supervisord control and aria2 control.)
 
