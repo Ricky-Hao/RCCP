@@ -76,6 +76,7 @@ def show_videos():
         for f in fn:
             video_list.append(f)
     video_list.sort()
+    video_list.reverse()
     return render_template('show_videos.html', video_list=video_list)
 
 
