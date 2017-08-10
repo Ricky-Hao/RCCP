@@ -9,7 +9,8 @@
     <ul class=videos>
         {% for video in video_list %}
         <li>
-            <a href={{ url_for('downloadVideo', video_name=video) }}>{{ video }}</a>
+            <a href={{ url_for('playVideo', video_name=video) }}>{{ video }}</a>
+            <a href={{ url_for('downloadVideo', video_name=video) }}><button>Download</button></a>
             <a href={{ url_for('removeVideo', video_name=video) }}><button>Delete</button></a>
         {% else %}
             <li><em>Unbelievable. No entries here so far</em>
