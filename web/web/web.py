@@ -11,7 +11,8 @@ app = Flask(__name__)
 # Load config.json.
 app.config.from_json('config.json')
 # If SECRET_KEY not set, generate one and save.
-if app.config.get('SECRET_KEY') is None:
+if app.config.get('SECRET_KEY') is None \
+        or app.config.get('SECRET_KEY') is "":
     app.logger.info("Generate SECRET_KEY")
     with open('config.json', 'r') as f:
         j = json.load(f)
@@ -84,11 +85,11 @@ def video(video_name):
     return send_from_directory(app.config.get('VIDEO_PATH'), video_name)
 
 
-@app.route('/video/remove/<string:video_name>')
+@app.route('/video/remove/<string:video_name>', methods=['GET'])
 @loginRequired
 def removeVideo(video_name):
     os.remove(app.config.get('VIDEO_PATH')+'/'+video_name)
-    return redirect(url_for('video'))
+    return redirect(url_for('show_videos'))
 
 
 if __name__ == "__main__":
