@@ -24,11 +24,14 @@ if app.config.get('SECRET_KEY') is None \
         json.dump(j, f)
     app.config.from_json('config.json')
 app.config['SECRET_KEY'] = b64decode(app.config.get('SECRET_KEY'))
+
+# Set time zone to Asia/Shanghai.
 os.environ['TZ'] = 'Asia/Shanghai'
 
 app.logger.debug(app.config)
 
 
+# Login check decorator.
 def loginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -38,12 +41,14 @@ def loginRequired(f):
     return decorated_function
 
 
+# Index
 @app.route('/')
 @loginRequired
 def index():
     return render_template('index.html')
 
 
+# Login function
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
@@ -61,6 +66,7 @@ def login():
     return render_template('login.html', error=error)
 
 
+# Logout function.
 @app.route('/logout')
 @loginRequired
 def logout():
@@ -69,6 +75,7 @@ def logout():
     return redirect(url_for('show_videos'))
 
 
+# List video file under the VIDEO_PATH.
 @app.route('/video')
 @loginRequired
 def show_videos():
@@ -82,12 +89,14 @@ def show_videos():
     return render_template('show_videos.html', video_list=video_list)
 
 
+# View or download the specific video.
 @app.route('/video/<string:video_name>')
 @loginRequired
 def video(video_name):
     return send_from_directory(app.config.get('VIDEO_PATH'), video_name)
 
 
+# Delete the specific video.
 @app.route('/video/remove/<string:video_name>', methods=['GET'])
 @loginRequired
 def removeVideo(video_name):
@@ -95,6 +104,8 @@ def removeVideo(video_name):
     flash(video_name+' was removed.')
     return redirect(url_for('show_videos'))
 
+
+# Remove videos older than the given days.
 @app.route('/video/removeVideoByDays', methods=['GET'])
 @loginRequired
 def removeVideoByDays():
