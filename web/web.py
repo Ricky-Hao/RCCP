@@ -1,4 +1,5 @@
 import os
+import time
 import sqlite3
 import json
 from functools import wraps
@@ -91,6 +92,21 @@ def video(video_name):
 def removeVideo(video_name):
     os.remove(app.config.get('VIDEO_PATH')+'/'+video_name)
     flash(video_name+' was removed.')
+    return redirect(url_for('show_videos'))
+
+@app.route('/video/removeVideoByDays', methods=['GET'])
+@loginRequired
+def removeVideoByDays():
+    if request.method == 'GET':
+        if request.args.get('days'):
+            days = int(request.args.get('days'))
+            older = time.time() - (days*24*60*60)
+            video_walk = os.walk(app.config.get('VIDEO_PATH'))
+            for dp, dn, fn in video_walk:
+                for f in fn:
+                    if os.path.getctime(app.config.get('VIDEO_PATH')+'/'+f) < older:
+                        os.remove(app.config.get('VIDEO_PATH')+'/'+f)
+            flash("You have remove videos which older than "+str(days)+" days.")
     return redirect(url_for('show_videos'))
 
 

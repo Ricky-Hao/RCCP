@@ -2,17 +2,17 @@
 {% block title %}Videos{% endblock %}
 {% block pagetitle %}PiCamera videos{% endblock %}
 {% block body %}
-    {% if session.logged_in %}
+<form action='video/removeVideoByDays' method='get'>
+    <input type="text" name="days" value="3" />
+    <button type="submit">Remove by days.</button>
+</form>
     <ul class=videos>
         {% for video in video_list %}
         <li>
-                <form action="{{ url_for('removeVideo', video_name=video) }}">
-                    <a href={{ url_for('video', video_name=video) }}>{{ video }}</a>
-                    <button type="submit">Delete</button>
-                </form>
+            <a href={{ url_for('video', video_name=video) }}>{{ video }}</a>
+            <a href={{ url_for('removeVideo', video_name=video) }}><button>Delete</button></a>
         {% else %}
             <li><em>Unbelievable. No entries here so far</em>
         {% endfor %}
     </ul>
-    {% endif %}
 {% endblock %}
