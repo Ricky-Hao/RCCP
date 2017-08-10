@@ -89,6 +89,7 @@ def video(video_name):
 @loginRequired
 def removeVideo(video_name):
     os.remove(app.config.get('VIDEO_PATH')+'/'+video_name)
+    flash(video_name+' was removed.')
     return redirect(url_for('show_videos'))
 
 
