@@ -5,6 +5,7 @@
 <form action='video/removeVideoByDays' method='get'>
     <input type="text" name="days" value="3" />
     <button type="submit">Remove by days.</button>
+    Storege: {{ storage_percent }}
 </form>
     <ul class=videos>
         {% for video in video_list %}

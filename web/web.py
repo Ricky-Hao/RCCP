@@ -1,6 +1,7 @@
 import os
 import time
 import sqlite3
+import subprocess
 import json
 from functools import wraps
 from base64 import b64encode, b64decode
@@ -80,6 +81,13 @@ def logout():
     return redirect(url_for('show_videos'))
 
 
+def getStorage():
+    c1 = subprocess.Popen(['df', '-h'], stdout=subprocess.PIPE)
+    c2 = subprocess.Popen(['awk','$6=="/" {print$5}'], stdin=c1.stdout, stdout=subprocess.PIPE)
+    percent = c2.stdout.read().decode().strip('\n')
+    return percent
+
+
 # List video file under the VIDEO_PATH.
 @app.route('/video')
 @loginRequired
@@ -91,7 +99,7 @@ def show_videos():
             video_list.append(f)
     video_list.sort()
     video_list.reverse()
-    return render_template('show_videos.html', video_list=video_list)
+    return render_template('show_videos.html', video_list=video_list, storage_percent=getStorage())
 
 
 # Play video online
