@@ -78,7 +78,7 @@ class Recorder:
         yield (filename,filepath)
 
     def AutoDeleteByDays(self):
-        older = time.time() - (int(self.config['AutoDeleteByDays'])*23*60*60)
+        older = time.time() - (int(self.config['remain_days'])*24*60*60)
         video_walk = os.walk(self.config['video_path'])
         for dp, dn, fn in video_walk:
             for f in fn:

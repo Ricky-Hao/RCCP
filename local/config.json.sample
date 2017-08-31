@@ -4,5 +4,6 @@
     "rotation":270,
     "quality":25,
     "video_length":3600,
-    "video_path":"/home/ricky/video"
+    "video_path":"/home/ricky/video",
+    "remain_days":3
 }
