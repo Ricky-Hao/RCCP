@@ -69,12 +69,22 @@ class Recorder:
             (filename, filepath) = next(self.GenerateFile())
             self.camera.split_recording(filepath+".h264")
             self.logger.info("Start recording "+filename+".h264")
+            self.AutoDeleteByDays()
 
     def GenerateFile(self):
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         filename = "PiCamera_"+timestamp
         filepath = self.config["video_path"]+"/"+filename
         yield (filename,filepath)
+
+    def AutoDeleteByDays(self):
+        older = time.time() - (int(self.config['AutoDeleteByDays'])*23*60*60)
+        video_walk = os.walk(self.config['video_path'])
+        for dp, dn, fn in video_walk:
+            for f in fn:
+                if os.path.getctime(self.config['video_path'] + '/' + f) < older:
+                    os.remove(self.config['video_path'] + '/' + f)
+
 
 class Converter(threading.Thread):
     def __init__(self, filename, filepath):
